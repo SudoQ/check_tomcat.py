@@ -4,7 +4,7 @@ Check tomcat server plugin for nagios
 
 Author: Daniel Due?as Domingo (dduenasd@gmail.com)
 
-Modified by: Simon Johansson [SudoQ](https://github.com/SudoQ)
+Modified by: Simon Johansson, github: [SudoQ](https://github.com/SudoQ)
 
 Version 2.0
 
