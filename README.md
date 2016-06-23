@@ -2,7 +2,8 @@ check_tomcat.py
 ===============
 Check tomcat server plugin for nagios
 
-Author: Daniel Dueñas Domingo (dduenasd@gmail.com)
+Author: Daniel Due?as Domingo (dduenasd@gmail.com)
+Modified by: Simon Johansson
 
 Version 2.0
 
