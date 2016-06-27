@@ -50,7 +50,8 @@
 #-------------------------------------------------------------------------------
 
 import argparse, sys
-import urllib2
+#import urllib2
+import requests
 import socket
 import xml.etree.ElementTree as ET
 from math import log
@@ -215,6 +216,9 @@ def read_page(host,port,url,user,password):
         print "connection url: %s\n"%(url_tomcat)
 
     try:
+        response = requests.get(url_tomcat, auth=(user, password), verify=False) # TODO Add SSL verification check as parameter
+        page = response.content
+        """
         password_mgr = urllib2.HTTPPasswordMgrWithDefaultRealm()
         password_mgr.add_password(None,url_tomcat,user,password)
         handler = urllib2.HTTPBasicAuthHandler(password_mgr)
@@ -242,6 +246,7 @@ def read_page(host,port,url,user,password):
     except socket.error as e:
        page = "ERROR: Dammit! I can't connect with host "+args.host+":"+args.port
        error = True
+    """
     except:
        page = "ERROR: Unexpected error (I'm damned if I know!): %s"%(sys.exc_info()[0])
        error = True
