@@ -221,11 +221,11 @@ def read_page(host,port,url,user,password):
         page = response.content
         if response.status_code != 200:
             if(response.status_code == 401):
-                page="ERROR: Unauthorized, your user not have permissions. %s" %(e)
+                page="ERROR: Unauthorized, your user not have permissions. %s" %(response.content)
             elif(response.status_code == 403):
-                page="ERROR: Forbidden, yours credentials are not correct. %s" %(e)
+                page="ERROR: Forbidden, yours credentials are not correct. %s" %(response.content)
             else:
-                page="ERROR: The server couldn\'t fulfill the request. %s" %(e)
+                page="ERROR: The server couldn\'t fulfill the request. %s" %(response.content)
             error=True
 
     except requests.exceptions.ConnectionError as e:
