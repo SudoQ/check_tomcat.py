@@ -216,37 +216,28 @@ def read_page(host,port,url,user,password):
         print "connection url: %s\n"%(url_tomcat)
 
     try:
-        response = requests.get(url_tomcat, auth=(user, password), verify=False) # TODO Add SSL verification check as parameter
+        verifySSL=False
+        response = requests.get(url_tomcat, auth=(user, password), verify=verifySSL)
         page = response.content
-        """
-        password_mgr = urllib2.HTTPPasswordMgrWithDefaultRealm()
-        password_mgr.add_password(None,url_tomcat,user,password)
-        handler = urllib2.HTTPBasicAuthHandler(password_mgr)
-        opener=urllib2.build_opener(handler)
-        urllib2.install_opener(opener)
-        req = urllib2.Request(url_tomcat)
-        handle = urllib2.urlopen(req, None)
-        # Store all page in a variable
-        page = handle.read()
-        # End of Open manager status
-    except urllib2.HTTPError as e:
-        if(e.code==401):
-            page="ERROR: Unauthorized, your user not have permissions. %s" %(e)
-        elif(e.code==403):
-            page="ERROR: Forbidden, yours credentials are not correct. %s" %(e)
-        else:
-            page="ERROR: The server couldn\'t fulfill the request. %s" %(e)
-        error=True
-    except urllib2.URLError as e:
+        if response.status_code != 200:
+            if(response.status_code == 401):
+                page="ERROR: Unauthorized, your user not have permissions. %s" %(e)
+            elif(response.status_code == 403):
+                page="ERROR: Forbidden, yours credentials are not correct. %s" %(e)
+            else:
+                page="ERROR: The server couldn\'t fulfill the request. %s" %(e)
+            error=True
+
+    except requests.exceptions.ConnectionError as e:
        page = 'ERROR: We failed to reach a server. Reason: %s' %(e.reason)
        error = True
+
     except socket.timeout as e:
         page = 'ERROR: Timeout error'
         error = True
     except socket.error as e:
        page = "ERROR: Dammit! I can't connect with host "+args.host+":"+args.port
        error = True
-    """
     except:
        page = "ERROR: Unexpected error (I'm damned if I know!): %s"%(sys.exc_info()[0])
        error = True
