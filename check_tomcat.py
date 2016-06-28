@@ -229,7 +229,7 @@ def read_page(host,port,url,user,password):
             error=True
 
     except requests.exceptions.ConnectionError as e:
-       page = 'ERROR: We failed to reach a server. Reason: %s' %(e.reason)
+       page = 'ERROR: We failed to reach a server. Reason: %s' %(e)
        error = True
 
     except socket.timeout as e:
